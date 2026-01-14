@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import Header from '@/components/header'
 import { 
   ArrowLeft, 
   Calendar, 
@@ -218,10 +219,10 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/70">Loading blog post...</p>
+          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading blog post...</p>
         </div>
       </div>
     )
@@ -229,12 +230,12 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Post Not Found</h1>
-          <p className="text-white/70 mb-6">The blog post you're looking for doesn't exist.</p>
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">Post Not Found</h1>
+          <p className="text-gray-600 mb-6">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
-            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
             </Button>
@@ -245,9 +246,11 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <>
+    <Header />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
       {/* Header */}
-      <div className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
+      <div className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -257,7 +260,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             <Link href="/blog">
               <Button 
                 variant="ghost" 
-                className="text-white/70 hover:text-white hover:bg-white/10 rounded-xl"
+                className="text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Blog
@@ -271,8 +274,8 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                 size="sm"
                 className={`rounded-xl ${
                   liked 
-                    ? 'text-red-400 hover:text-red-300' 
-                    : 'text-white/70 hover:text-white'
+                    ? 'text-red-500 hover:text-red-600' 
+                    : 'text-gray-600 hover:text-blue-600'
                 }`}
               >
                 <Heart className={`w-4 h-4 mr-1 ${liked ? 'fill-current' : ''}`} />
@@ -283,7 +286,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                 onClick={handleShare}
                 variant="ghost"
                 size="sm"
-                className="text-white/70 hover:text-white rounded-xl"
+                className="text-gray-600 hover:text-blue-600 rounded-xl"
               >
                 <Share2 className="w-4 h-4 mr-1" />
                 Share
@@ -308,11 +311,10 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                 alt={post.title}
                 className="w-full h-64 md:h-80 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
           ) : (
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 h-64 md:h-80 flex items-center justify-center">
-              <BookOpen className="w-24 h-24 text-white/30" />
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-br from-blue-100 to-blue-200 h-64 md:h-80 flex items-center justify-center">
+              <BookOpen className="w-24 h-24 text-blue-400" />
             </div>
           )}
         </motion.div>
@@ -323,15 +325,15 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <Card className="bg-white/5 backdrop-blur-sm border-white/10 shadow-2xl">
+          <Card className="bg-white border-gray-200 shadow-xl">
             <CardContent className="p-8">
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
                 {post.title}
               </h1>
 
               {/* Meta Information */}
-              <div className="flex flex-wrap items-center gap-4 mb-6 text-white/70">
+              <div className="flex flex-wrap items-center gap-4 mb-6 text-gray-600">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4" />
                   <span>{post.author}</span>
@@ -359,7 +361,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   <Badge
                     key={index}
                     variant="outline"
-                    className="bg-purple-500/10 text-purple-200 border-purple-400/30"
+                    className="bg-blue-50 text-blue-700 border-blue-300"
                   >
                     <Tag className="w-3 h-3 mr-1" />
                     {tag}
@@ -368,9 +370,9 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
               </div>
 
               {/* Content */}
-              <div className="blog-content prose prose-invert max-w-none">
+              <div className="blog-content prose max-w-none">
                 <div 
-                  className="text-white/90 leading-relaxed"
+                  className="text-gray-700 leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 />
               </div>
@@ -378,42 +380,42 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                 .blog-content h1 {
                   font-size: 2.5em;
                   font-weight: bold;
-                  color: white;
+                  color: #1e40af;
                   margin: 1.5em 0 0.75em 0;
                   line-height: 1.2;
                 }
                 .blog-content h2 {
                   font-size: 2em;
                   font-weight: bold;
-                  color: white;
+                  color: #1e40af;
                   margin: 1.25em 0 0.625em 0;
                   line-height: 1.3;
                 }
                 .blog-content h3 {
                   font-size: 1.5em;
                   font-weight: bold;
-                  color: white;
+                  color: #2563eb;
                   margin: 1em 0 0.5em 0;
                   line-height: 1.4;
                 }
                 .blog-content h4 {
                   font-size: 1.25em;
                   font-weight: bold;
-                  color: white;
+                  color: #2563eb;
                   margin: 0.875em 0 0.4375em 0;
                   line-height: 1.4;
                 }
                 .blog-content h5 {
                   font-size: 1.125em;
                   font-weight: bold;
-                  color: white;
+                  color: #3b82f6;
                   margin: 0.75em 0 0.375em 0;
                   line-height: 1.5;
                 }
                 .blog-content h6 {
                   font-size: 1em;
                   font-weight: bold;
-                  color: white;
+                  color: #3b82f6;
                   margin: 0.625em 0 0.3125em 0;
                   line-height: 1.5;
                 }
@@ -426,29 +428,29 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   margin-top: 0;
                 }
                 .blog-content p {
-                  color: rgba(255, 255, 255, 0.9);
+                  color: #374151;
                   margin: 1em 0;
                   line-height: 1.7;
                   font-size: 1rem;
                 }
                 .blog-content ul,
                 .blog-content ol {
-                  color: rgba(255, 255, 255, 0.9);
+                  color: #374151;
                   margin: 1em 0;
                   padding-left: 2em;
                   line-height: 1.7;
                 }
                 .blog-content li {
                   margin: 0.5em 0;
-                  color: rgba(255, 255, 255, 0.9);
+                  color: #374151;
                 }
                 .blog-content strong {
                   font-weight: bold;
-                  color: white;
+                  color: #1f2937;
                 }
                 .blog-content em {
                   font-style: italic;
-                  color: rgba(255, 255, 255, 0.9);
+                  color: #374151;
                 }
                 .blog-content u {
                   text-decoration: underline;
@@ -457,12 +459,12 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   text-decoration: line-through;
                 }
                 .blog-content blockquote {
-                  border-left: 4px solid rgba(255, 255, 255, 0.3);
+                  border-left: 4px solid #3b82f6;
                   padding-left: 1.5em;
                   margin: 1.5em 0;
-                  color: rgba(255, 255, 255, 0.8);
+                  color: #4b5563;
                   font-style: italic;
-                  background: rgba(255, 255, 255, 0.05);
+                  background: #eff6ff;
                   padding: 1em 1.5em;
                   border-radius: 0.5em;
                 }
@@ -470,23 +472,24 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   margin: 0.5em 0;
                 }
                 .blog-content a {
-                  color: #a78bfa;
+                  color: #2563eb;
                   text-decoration: underline;
                   transition: color 0.2s;
                 }
                 .blog-content a:hover {
-                  color: #c4b5fd;
+                  color: #1d4ed8;
                 }
                 .blog-content code {
-                  background-color: rgba(0, 0, 0, 0.4);
-                  color: #fbbf24;
+                  background-color: #f3f4f6;
+                  color: #dc2626;
                   padding: 0.2em 0.4em;
                   border-radius: 0.25em;
                   font-size: 0.9em;
                   font-family: 'Courier New', monospace;
                 }
                 .blog-content pre {
-                  background-color: rgba(0, 0, 0, 0.4);
+                  background-color: #1f2937;
+                  color: #f3f4f6;
                   padding: 1.5em;
                   border-radius: 0.5em;
                   overflow-x: auto;
@@ -502,31 +505,31 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   height: auto;
                   margin: 2em 0;
                   border-radius: 0.5em;
-                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
                 }
                 .blog-content table {
                   width: 100%;
                   border-collapse: collapse;
                   margin: 1.5em 0;
-                  background: rgba(255, 255, 255, 0.05);
+                  background: #f9fafb;
                   border-radius: 0.5em;
                   overflow: hidden;
                 }
                 .blog-content th,
                 .blog-content td {
-                  border: 1px solid rgba(255, 255, 255, 0.2);
+                  border: 1px solid #e5e7eb;
                   padding: 0.75em;
                   text-align: left;
-                  color: rgba(255, 255, 255, 0.9);
+                  color: #374151;
                 }
                 .blog-content th {
-                  background-color: rgba(255, 255, 255, 0.1);
+                  background-color: #eff6ff;
                   font-weight: bold;
-                  color: white;
+                  color: #1e40af;
                 }
                 .blog-content hr {
                   border: none;
-                  border-top: 2px solid rgba(255, 255, 255, 0.2);
+                  border-top: 2px solid #e5e7eb;
                   margin: 2em 0;
                 }
                 .blog-content iframe {
@@ -537,13 +540,13 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
               `}</style>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t border-white/10">
+              <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t border-gray-200">
                 <Button
                   onClick={handleLike}
                   className={`rounded-xl ${
                     liked 
                       ? 'bg-red-500 hover:bg-red-600 text-white' 
-                      : 'bg-white/10 hover:bg-white/20 text-white'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
                   }`}
                 >
                   <Heart className={`w-4 h-4 mr-2 ${liked ? 'fill-current' : ''}`} />
@@ -553,7 +556,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                 <Button
                   onClick={handleShare}
                   variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10 rounded-xl"
+                  className="border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 rounded-xl"
                 >
                   <Share2 className="w-4 h-4 mr-2" />
                   Share Post
@@ -562,7 +565,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                 <Link href="/blog/create">
                   <Button 
                     variant="outline" 
-                    className="border-purple-400/30 text-purple-200 hover:bg-purple-500/10 rounded-xl"
+                    className="border-blue-300 text-blue-700 hover:bg-blue-50 rounded-xl"
                   >
                     <BookOpen className="w-4 h-4 mr-2" />
                     Write Post
@@ -580,7 +583,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
           transition={{ delay: 0.3 }}
           className="mt-12"
         >
-          <h2 className="text-2xl font-bold text-white mb-6">Related Posts</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Related Posts</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {dummyPosts
               .filter(p => (p.id || 0) !== (post.id || post._id || 0))
@@ -590,7 +593,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   key={relatedPost.id || index}
                   href={`/blog/${relatedPost.title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-')}`}
                 >
-                  <Card className="bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all duration-300 cursor-pointer group">
+                  <Card className="bg-white border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                     <CardContent className="p-6">
                       {relatedPost.featuredImage ? (
                         <img
@@ -599,14 +602,14 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                           className="w-full h-32 object-cover rounded-lg mb-4 group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-32 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-lg mb-4 flex items-center justify-center">
-                          <BookOpen className="w-8 h-8 text-white/30" />
+                        <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-4 flex items-center justify-center">
+                          <BookOpen className="w-8 h-8 text-blue-400" />
                         </div>
                       )}
-                      <h3 className="text-white font-semibold mb-2 group-hover:text-purple-300 transition-colors">
+                      <h3 className="text-gray-800 font-semibold mb-2 group-hover:text-blue-600 transition-colors">
                         {relatedPost.title}
                       </h3>
-                      <p className="text-white/70 text-sm line-clamp-2">
+                      <p className="text-gray-600 text-sm line-clamp-2">
                         {relatedPost.excerpt}
                       </p>
                     </CardContent>
@@ -617,5 +620,6 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         </motion.div>
       </div>
     </div>
+    </>
   )
 }

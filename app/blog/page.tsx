@@ -53,7 +53,7 @@ export default function BlogPage() {
   return (
     <>
     <Header />
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 p-4 md:p-8">
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -62,10 +62,10 @@ export default function BlogPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            📝 Blog Posts
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-700 mb-4">
+             Blog Posts
           </h1>
-          <p className="text-white/70 text-lg">
+          <p className="text-gray-600 text-lg">
             Discover amazing content and share your thoughts
           </p>
         </motion.div>
@@ -73,8 +73,8 @@ export default function BlogPage() {
         {/* Blog Posts Grid */}
         {loading ? (
           <div className="text-center py-16">
-            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-white/70">Loading blog posts...</p>
+            <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-gray-600">Loading blog posts...</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -86,7 +86,7 @@ export default function BlogPage() {
               transition={{ delay: index * 0.1 }}
             >
               <Link href={`/blog/${post.slug}`}>
-                <Card className="bg-white/5 backdrop-blur-sm border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 group cursor-pointer">
+                <Card className="bg-white border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group cursor-pointer">
                 {/* Featured Image */}
                 <div className="relative overflow-hidden rounded-t-lg">
                   {post.featuredImage ? (
@@ -96,16 +96,16 @@ export default function BlogPage() {
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
-                      <FileText className="w-16 h-16 text-white/30" />
+                    <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                      <FileText className="w-16 h-16 text-blue-400" />
                     </div>
                   )}
                   <div className="absolute top-3 right-3">
                     <Badge 
                       variant={post.status === 'published' ? 'default' : 'secondary'}
                       className={post.status === 'published' 
-                        ? 'bg-green-500/20 text-green-200 border-green-400/30' 
-                        : 'bg-yellow-500/20 text-yellow-200 border-yellow-400/30'
+                        ? 'bg-green-100 text-green-700 border-green-300' 
+                        : 'bg-yellow-100 text-yellow-700 border-yellow-300'
                       }
                     >
                       {post.status}
@@ -114,14 +114,14 @@ export default function BlogPage() {
                 </div>
 
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-white text-lg line-clamp-2 group-hover:text-purple-300 transition-colors">
+                  <CardTitle className="text-gray-800 text-lg line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {post.title}
                   </CardTitle>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
                   {/* Excerpt */}
-                  <p className="text-white/70 text-sm line-clamp-3">
+                  <p className="text-gray-600 text-sm line-clamp-3">
                     {post.excerpt}
                   </p>
 
@@ -131,7 +131,7 @@ export default function BlogPage() {
                       <Badge
                         key={tagIndex}
                         variant="outline"
-                        className="bg-purple-500/10 text-purple-200 border-purple-400/30 text-xs"
+                        className="bg-blue-50 text-blue-700 border-blue-300 text-xs"
                       >
                         <Tag className="w-3 h-3 mr-1" />
                         {tag}
@@ -141,7 +141,7 @@ export default function BlogPage() {
 
                   {/* Date and Read More */}
                   <div className="flex items-center justify-between pt-2">
-                    <div className="flex items-center text-white/50 text-xs">
+                    <div className="flex items-center text-gray-500 text-xs">
                       <Calendar className="w-3 h-3 mr-1" />
                       {new Date(post.createdAt).toLocaleDateString()}
                     </div>
@@ -150,7 +150,7 @@ export default function BlogPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-purple-300 hover:text-purple-200 hover:bg-purple-500/10 p-1 h-auto"
+                        className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-1 h-auto"
                       >
                         <ArrowRight className="w-4 h-4" />
                       </Button>
@@ -171,9 +171,9 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-16"
           >
-            <FileText className="w-16 h-16 text-white/30 mx-auto mb-4" />
-            <h3 className="text-xl text-white/70 mb-2">No blog posts yet</h3>
-            <p className="text-white/50">Check back soon for new content!</p>
+            <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-xl text-gray-600 mb-2">No blog posts yet</h3>
+            <p className="text-gray-500">Check back soon for new content!</p>
           </motion.div>
         )}
       </div>
