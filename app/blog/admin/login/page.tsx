@@ -240,7 +240,7 @@ export default function AdminLoginPage() {
                     {message}
                   </div>
                 )}
-
+{/* 
                 {displayOtp && (
                   <div className="bg-purple-500/20 border-2 border-purple-400/50 rounded-xl p-6 text-center">
                     <p className="text-white/70 text-sm mb-2">Development Mode OTP:</p>
@@ -249,7 +249,7 @@ export default function AdminLoginPage() {
                     </div>
                     <p className="text-white/50 text-xs mt-2">Use this code to login</p>
                   </div>
-                )}
+                )} */}
 
                 <div className="space-y-3">
                   <Button
