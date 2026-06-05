@@ -283,6 +283,7 @@ useEffect(() => {
 
   return (
     <section
+      id="services"
       ref={sectionRef}
       className="py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
     >
@@ -461,9 +462,11 @@ useEffect(() => {
               {data?.items?.[0]?.fields?.servicectaDescription}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-white text-blue-600 hover:bg-gray-100 px-8">{data?.items?.[0]?.fields?.ctaBtn1}</Button>
-                <Button className="border-white text-white hover:bg-white border-2 hover:text-blue-600 px-8">
-                {data?.items?.[0]?.fields?.ctaBtn2}
+                <Button asChild className="bg-white text-blue-600 hover:bg-gray-100 px-8">
+                  <a href="#contact">{data?.items?.[0]?.fields?.ctaBtn1}</a>
+                </Button>
+                <Button asChild className="border-white text-white hover:bg-white border-2 hover:text-blue-600 px-8">
+                  <a href="/services/inbound">{data?.items?.[0]?.fields?.ctaBtn2}</a>
                 </Button>
               </div>
             </div>

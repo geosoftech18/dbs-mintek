@@ -34,8 +34,8 @@ const footerLinks = {
   
   ],
   support: [
-    { name: "Contact Us", href: "/contact" },
-    { name: "FAQ", href: "#" },
+    { name: "Mumbai", href: "/city/mumbai" },
+   
    
   ],
 }
@@ -43,7 +43,7 @@ const footerLinks = {
 const socialLinks = [
   { name: "Facebook", icon: Facebook, href: "#", color: "hover:text-blue-600" },
   { name: "Twitter", icon: Twitter, href: "#", color: "hover:text-blue-400" },
-  { name: "LinkedIn", icon: Linkedin, href: "#", color: "hover:text-blue-700" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/dbsmintek/", color: "hover:text-blue-700" },
   { name: "Instagram", icon: Instagram, href: "#", color: "hover:text-pink-600" },
 ]
 
@@ -150,6 +150,20 @@ export default function Footer() {
 
             {/* Newsletter & Support */}
             <div>
+            <h4 className="text-lg font-semibold mb-4">Cities We Serve</h4>
+              <ul className="space-y-3 mb-6">
+                {footerLinks.support.slice(0, 4).map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-gray-300 hover:text-white transition-colors text-sm flex items-center group"
+                    >
+                      <ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
               <h3 className="text-lg font-semibold mb-6">Stay Updated</h3>
               <p className="text-gray-300 text-sm mb-4">
                 Subscribe to our newsletter for the latest updates and industry insights.
@@ -166,20 +180,7 @@ export default function Footer() {
                 </Button>
               </div>
 
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-3">
-                {footerLinks.support.slice(0, 4).map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors text-sm flex items-center group"
-                    >
-                      <ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+             
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sendBrevoEmail } from '@/lib/brevo'
 
 // Simple test endpoint to debug email sending
 export async function POST(request: NextRequest) {
@@ -31,43 +32,7 @@ export async function POST(request: NextRequest) {
 
     console.log('🧪 Sending test email with payload:', JSON.stringify(emailPayload, null, 2))
 
-    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'api-key': process.env.BREVO_API_KEY,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(emailPayload),
-    })
-
-    const responseText = await response.text()
-    console.log('🧪 Response status:', response.status)
-    console.log('🧪 Response text:', responseText)
-
-    if (!response.ok) {
-      let errorData
-      try {
-        errorData = JSON.parse(responseText)
-      } catch (e) {
-        errorData = { message: responseText }
-      }
-
-      return NextResponse.json({
-        success: false,
-        error: 'Failed to send test email',
-        status: response.status,
-        statusText: response.statusText,
-        errorDetails: errorData,
-        apiKeyExists: true
-      }, { status: 500 })
-    }
-
-    let responseData
-    try {
-      responseData = JSON.parse(responseText)
-    } catch (e) {
-      responseData = { message: responseText }
-    }
+    const responseData = await sendBrevoEmail(emailPayload)
 
     return NextResponse.json({
       success: true,

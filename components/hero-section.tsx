@@ -86,14 +86,15 @@ export default function HeroSection() {
               {slides[currentSlide].subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:pt-20 animate-fade-in-delay-2">
-              <Button  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-base font-medium">
-                Get Free Consultation
+              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-base font-medium">
+                <a href="#contact">Get Free Consultation</a>
               </Button>
               <Button
-                
+                asChild
+                variant="outline"
                 className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 text-base font-medium"
               >
-                View Our Services
+                <a href="#services">View Our Services</a>
               </Button>
             </div>
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { otpStore } from '@/lib/auth-store'
+import { sendBrevoEmail } from '@/lib/brevo'
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'khandekarpranav52@gmail.com'
 
@@ -67,84 +68,7 @@ export async function POST(request: NextRequest) {
         textContent: `Admin Login Verification Code\n\nYour verification code is: ${otp}\n\nThis code will expire in 10 minutes.\n\nIf you didn't request this code, please ignore this email.`
       }
       
-      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-        method: 'POST',
-        headers: {
-          'api-key': process.env.BREVO_API_KEY,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(emailPayload),
-      })
-      
-      console.log('📧 Brevo API response status:', response.status, response.statusText)
-
-      if (!response.ok) {
-        let errorData
-        try {
-          const responseText = await response.text()
-          console.error('📧 Brevo API error response:', responseText)
-          try {
-            errorData = JSON.parse(responseText)
-          } catch (e) {
-            errorData = { message: responseText || `HTTP ${response.status}: ${response.statusText}` }
-          }
-        } catch (e) {
-          errorData = { message: `HTTP ${response.status}: ${response.statusText}` }
-        }
-        
-        console.error('❌ Brevo API error details:', {
-          status: response.status,
-          statusText: response.statusText,
-          error: errorData
-        })
-        
-        // Check for specific error types
-        if (response.status === 401 || response.status === 403) {
-          return NextResponse.json(
-            { 
-              success: false, 
-              error: 'Email service authentication failed. Please check API key configuration.',
-              details: errorData.message || 'Invalid API key'
-            },
-            { status: 500 }
-          )
-        }
-        
-        if (errorData.code === 'unauthorized' || errorData.message?.includes('IP address')) {
-          return NextResponse.json(
-            { 
-              success: false, 
-              error: 'IP address not authorized. Please add your IP to Brevo authorized IPs.',
-              hint: 'Go to https://app.brevo.com/security/authorised_ips and add your IP address',
-              details: errorData.message
-            },
-            { status: 500 }
-          )
-        }
-        
-        if (errorData.message?.includes('sender') || errorData.message?.includes('email')) {
-          return NextResponse.json(
-            { 
-              success: false, 
-              error: 'Sender email not verified. Please verify your email in Brevo.',
-              hint: 'Go to https://app.brevo.com/settings/senders and verify your sender email',
-              details: errorData.message
-            },
-            { status: 500 }
-          )
-        }
-        
-        return NextResponse.json(
-          { 
-            success: false, 
-            error: 'Failed to send verification email',
-            details: errorData.message || `HTTP ${response.status}: ${response.statusText}`
-          },
-          { status: 500 }
-        )
-      }
-
-      const responseData = await response.json().catch(() => ({}))
+      const responseData = await sendBrevoEmail(emailPayload)
       console.log('✅ Email sent successfully! Response:', responseData)
       
       return NextResponse.json(
@@ -157,13 +81,39 @@ export async function POST(request: NextRequest) {
         },
         { status: 200 }
       )
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error sending email:', error)
+      const details = error instanceof Error ? error.message : 'Network error or service unavailable'
+
+      if (details.includes('IP address') || details.includes('unrecognised IP')) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'IP address not authorized. Please add your IP to Brevo authorized IPs.',
+            hint: 'Go to https://app.brevo.com/security/authorised_ips and add your IP address',
+            details,
+          },
+          { status: 500 }
+        )
+      }
+
+      if (details.includes('sender') || details.toLowerCase().includes('not verified')) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Sender email not verified. Please verify your email in Brevo.',
+            hint: 'Go to https://app.brevo.com/settings/senders and verify your sender email',
+            details,
+          },
+          { status: 500 }
+        )
+      }
+
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           error: 'Failed to send verification email',
-          details: error.message || 'Network error or service unavailable'
+          details,
         },
         { status: 500 }
       )

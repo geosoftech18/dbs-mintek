@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sendBrevoEmail } from '@/lib/brevo'
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'khandekarpranav52@gmail.com'
 const SENDER_EMAIL = process.env.SENDER_EMAIL || 'pranavkhandekar152@gmail.com'
@@ -117,59 +118,18 @@ This inquiry was submitted through the DBS Mintek contact form.
 
     console.log('📧 Sending contact form inquiry to:', ADMIN_EMAIL)
 
-    // Send email via Brevo
-    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'api-key': process.env.BREVO_API_KEY,
-        'Content-Type': 'application/json',
+    const responseData = await sendBrevoEmail({
+      sender: {
+        name: 'DBS Mintek Contact Form',
+        email: SENDER_EMAIL,
       },
-      body: JSON.stringify({
-        sender: { 
-          name: 'DBS Mintek Contact Form', 
-          email: SENDER_EMAIL 
-        },
-        to: [{ email: ADMIN_EMAIL, name: 'Admin' }],
-        replyTo: { email: email, name: name },
-        subject: `New Contact Form Inquiry from ${name}${company ? ` - ${company}` : ''}`,
-        htmlContent: htmlContent,
-        textContent: textContent,
-      }),
+      to: [{ email: ADMIN_EMAIL, name: 'Admin' }],
+      replyTo: { email, name },
+      subject: `New Contact Form Inquiry from ${name}${company ? ` - ${company}` : ''}`,
+      htmlContent,
+      textContent,
     })
 
-    console.log('📧 Brevo API response status:', response.status, response.statusText)
-
-    if (!response.ok) {
-      let errorData
-      try {
-        const responseText = await response.text()
-        console.error('📧 Brevo API error response:', responseText)
-        try {
-          errorData = JSON.parse(responseText)
-        } catch (e) {
-          errorData = { message: responseText || `HTTP ${response.status}: ${response.statusText}` }
-        }
-      } catch (e) {
-        errorData = { message: `HTTP ${response.status}: ${response.statusText}` }
-      }
-      
-      console.error('❌ Brevo API error details:', {
-        status: response.status,
-        statusText: response.statusText,
-        error: errorData
-      })
-      
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Failed to send email. Please try again later.',
-          details: errorData.message
-        },
-        { status: 500 }
-      )
-    }
-
-    const responseData = await response.json().catch(() => ({}))
     console.log('✅ Contact form email sent successfully! Response:', responseData)
 
     return NextResponse.json(
