@@ -16,10 +16,10 @@ import {
 const services = [
   {
     icon: HeadphonesIcon,
-    title: "Customer Service",
+    title: "Customer Support & Inquiry ",
     subtitle: "Omnichannel Support",
     description:
-      "Deliver consistent, empathetic customer experiences across voice, chat, and email. Our trained agents resolve queries on first contact, building loyalty that drives lifetime value.",
+      " Never miss a customer connection. From answering general product inquiries to handling complex customer complaints, our trained inbound agents act as a seamless extension of your brand, driving first-contact resolution (FCR) and higher CSAT scores.",
     features: [
       "First Call Resolution (FCR) focus",
       "CRM-integrated agent desktops",
@@ -32,10 +32,10 @@ const services = [
   },
   {
     icon: Wrench,
-    title: "Technical Support",
+    title: "Technical Support & Help Desk ",
     subtitle: "Tier 1 – Tier 3 Coverage",
     description:
-      "From basic troubleshooting to complex technical escalations, our certified support specialists resolve product and software issues quickly, minimizing downtime for your customers.",
+      "Resolve technical roadblocks swiftly. Our specialized tech-support teams handle Tier 1 and Tier 2 troubleshooting, software navigation guidance, hardware issue ticketing, and product configuration support to keep your users happy and engaged",
     features: [
       "Multi-tier escalation workflows",
       "Remote diagnostics & screen share",
@@ -165,12 +165,12 @@ export default function ServicesSection() {
         <div className="flex flex-col items-center text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold px-4 py-2 rounded-full mb-5">
             <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
-            Our Core Services
+            Core Inbound Offerings
           </div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight max-w-3xl">
-            Comprehensive Inbound Solutions{" "}
+          Comprehensive Inbound Call Center Solutions{" "}
             <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-              Built for Business Growth
+            Tailored to Your Business
             </span>
           </h2>
           <p className="mt-5 text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl">

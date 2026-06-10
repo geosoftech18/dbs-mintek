@@ -4,6 +4,8 @@ export interface IBlog extends Document {
   title: string
   content: string
   excerpt: string
+  metaTitle?: string | null
+  metaDescription?: string | null
   tags: string[]
   status: 'published' | 'draft'
   featuredImage: string | null
@@ -27,6 +29,18 @@ const BlogSchema: Schema = new Schema(
       type: String,
       required: true,
       maxlength: 500,
+    },
+    metaTitle: {
+      type: String,
+      trim: true,
+      maxlength: 70,
+      default: null,
+    },
+    metaDescription: {
+      type: String,
+      trim: true,
+      maxlength: 320,
+      default: null,
     },
     tags: {
       type: [String],

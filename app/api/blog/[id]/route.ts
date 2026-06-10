@@ -50,7 +50,7 @@ export async function PUT(
     const { id } = await params
 
     const body = await request.json()
-    const { title, content, tags, featuredImage, status } = body
+    const { title, content, tags, featuredImage, status, metaTitle, metaDescription } = body
 
     // Validate required fields
     if (!title || !content) {
@@ -86,6 +86,8 @@ export async function PUT(
         title,
         content,
         excerpt,
+        metaTitle: metaTitle?.trim() || null,
+        metaDescription: metaDescription?.trim() || null,
         tags: tags || [],
         featuredImage: featuredImage || null,
         status: status || 'draft',

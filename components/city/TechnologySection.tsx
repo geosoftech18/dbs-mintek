@@ -222,13 +222,13 @@ export default function TechnologySection() {
             Technology & Infrastructure
           </div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight max-w-5xl">
-            Enterprise-Grade Tech Stack{" "}
+          Next-Gen Technology{" "}
             <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-              Powering Every Interaction
+            Powering Our Mumbai Customer Experience Center
             </span>
           </h2>
           <p className="mt-5 text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl">
-            Eight purpose-built technology pillars working in concert — from the moment a customer dials in to the final resolution report.
+          We don’t just answer calls; we optimize the entire customer journey using data-driven workflows and elite omnichannel technology:
           </p>
         </div>
 

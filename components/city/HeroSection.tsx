@@ -97,7 +97,7 @@ export default function HeroSection() {
           {/* Headline */}
           <div>
             <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-white leading-[1.12] tracking-tight">
-              Enterprise-Grade
+            Top-Rated
               <br />
               <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
                 Inbound Call Center
@@ -106,7 +106,7 @@ export default function HeroSection() {
               Services in Mumbai
             </h1>
             <p className="mt-5 text-slate-300 text-base md:text-lg leading-relaxed max-w-lg">
-              Elevate customer experience with AI-augmented inbound support, skilled agents, and real-time analytics. Trusted by 500+ enterprises across India.
+            Scale your customer support, boost retention, and deliver 24/7 exceptional experiences. Partner with Mumbai’s leading inbound BPO experts equipped with cutting-edge technology and premium talent.
             </p>
           </div>
 

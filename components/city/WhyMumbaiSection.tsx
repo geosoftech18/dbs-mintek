@@ -138,13 +138,16 @@ export default function WhyMumbaiSection() {
             Mumbai Business Challenges
           </div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight max-w-3xl">
-            Why Mumbai Businesses Need{" "}
+          Why Global Businesses Choose Our{" "}
             <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
-              Inbound Call Center Services
+            Inbound BPO in Mumbai
             </span>
           </h2>
           <p className="mt-5 text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
-            In a city that never sleeps, your customer support shouldn't either. Here's why leading Mumbai enterprises outsource their inbound operations to specialists.
+          In today’s competitive landscape, delivering fast, empathetic, and accurate customer support is a key business differentiator. Our state-of-the-art inbound call center services in Mumbai empower your brand to handle high-volume customer touchpoints seamlessly.
+          </p>
+          <p className="mt-5 text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
+          By strategically locating our operations hub in Mumbai, we leverage the city’s vast, highly educated, and multilingual professional talent pool. Whether you need to support customers across India or require global 24/7 technical help desks, our Mumbai facility delivers robust infrastructure, exceptional language proficiency, and unmatched operational agility to keep your business running smoothly around the clock.
           </p>
         </div>
 

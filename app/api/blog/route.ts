@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     await connectDB()
 
     const body = await request.json()
-    const { title, content, tags, featuredImage, status } = body
+    const { title, content, tags, featuredImage, status, metaTitle, metaDescription } = body
 
     // Validate required fields
     if (!title || !content) {
@@ -92,6 +92,8 @@ export async function POST(request: NextRequest) {
         title,
         content,
         excerpt,
+        metaTitle: metaTitle?.trim() || null,
+        metaDescription: metaDescription?.trim() || null,
         tags: tags || [],
         featuredImage: featuredImage || null,
         status: status || 'draft',
@@ -105,6 +107,8 @@ export async function POST(request: NextRequest) {
       title,
       content,
       excerpt,
+      metaTitle: metaTitle?.trim() || null,
+      metaDescription: metaDescription?.trim() || null,
       tags: tags || [],
       featuredImage: featuredImage || null,
       status: status || 'draft',

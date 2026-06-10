@@ -24,12 +24,12 @@ import { DEFAULT_COUNTRY_ISO } from "@/lib/countries";
 
 const faqs = [
   {
-    q: "How quickly can DBS Mintek get our call center operations live?",
-    a: "Our proven six-stage onboarding framework gets most clients live within 30 days. For smaller deployments (under 20 seats), we can go live in as few as 14 days. Enterprise rollouts with complex CRM integrations are typically live within 45–60 days, with a controlled ramp-up to ensure zero-defect quality from day one.",
+    q: "What are the main benefits of outsourcing inbound call center services in Mumbai? ",
+    a: "OMumbai offers a massive concentration of skilled, highly educated, and accent-neutral professionals capable of delivering multilingual support. Combined with world-class telecom infrastructure and cost-effective operational scaling, it is an ideal hub for global B2B and B2C customer support.",
   },
   {
-    q: "What industries does your team have direct experience in?",
-    a: "We serve eight core verticals — BFSI, Fintech, Telecom, Real Estate, Healthcare, E-commerce, Education, and Logistics — and have supported clients across 25+ sub-sectors. Each vertical has dedicated team leads with domain certification and product training specific to your industry's compliance and workflow requirements.",
+    q: " Can your inbound call center scale up during peak business hours or seasonal demand?",
+    a: "We  Yes. Our infrastructure and workforce management models are designed to scale dynamically. Whether you face seasonal spikes in e-commerce orders or promotional marketing surges, we can rapidly deploy additional trained agents to maintain your strict SLA targets.",
   },
   {
     q: "Do you offer 24/7 support coverage, including weekends and public holidays?",
@@ -54,6 +54,14 @@ const faqs = [
   {
     q: "Do you support multilingual customer support?",
     a: "Yes. We currently support 12 Indian languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, and Gujarati, in addition to English. Multilingual routing is handled automatically by our IVR, and language-specific agent pools are available for all major Indian regional markets.",
+  },
+  {
+    q: " Yes. Our infrastructure and workforce management models are designed to scale dynamically. Whether you face seasonal spikes in e-commerce orders or promotional marketing surges, we can rapidly deploy additional trained agents to maintain your strict SLA targets.",
+    a: "We treat security with the highest priority. Our infrastructure includes secure data pipelines, restricted physical access to production floors, strictly monitored networks, and end-to-end data encryption parameters to align with international privacy standards.",
+  },
+  {
+    q: "How do you transition our internal processes to your Mumbai team?",
+    a: "We use a structured onboarding framework. Our transition managers work closely with your team to document standard operating procedures (SOPs), build comprehensive knowledge bases, conduct deep agent training simulation rounds, and execute a controlled parallel launch to ensure a zero-friction handover",
   },
 ];
 

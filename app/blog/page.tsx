@@ -126,7 +126,7 @@ export default function BlogPage() {
                   </p>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-1">
+                  {/* <div className="flex flex-wrap gap-1">
                     {post.tags.map((tag, tagIndex) => (
                       <Badge
                         key={tagIndex}
@@ -137,7 +137,7 @@ export default function BlogPage() {
                         {tag}
                       </Badge>
                     ))}
-                  </div>
+                  </div> */}
 
                   {/* Date and Read More */}
                   <div className="flex items-center justify-between pt-2">

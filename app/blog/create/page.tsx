@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import BlogEditor from '@/components/blog-editor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -32,6 +33,8 @@ function BlogCreateContent() {
   const isEditing = !!editId
 
   const [title, setTitle] = useState('')
+  const [metaTitle, setMetaTitle] = useState('')
+  const [metaDescription, setMetaDescription] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState('')
@@ -79,6 +82,8 @@ function BlogCreateContent() {
           if (result.success && result.data) {
             const blog = result.data
             setTitle(blog.title)
+            setMetaTitle(blog.metaTitle || '')
+            setMetaDescription(blog.metaDescription || '')
             setContent(blog.content)
             setTags(blog.tags || [])
             setFeaturedImage(blog.featuredImage)
@@ -146,11 +151,13 @@ function BlogCreateContent() {
     
     try {
       const blogData = {
-      title,
-      content,
-      tags,
-      featuredImage,
-      status: isPublished ? 'published' : 'draft',
+        title,
+        content,
+        metaTitle: metaTitle.trim() || null,
+        metaDescription: metaDescription.trim() || null,
+        tags,
+        featuredImage,
+        status: isPublished ? 'published' : 'draft',
       }
 
       let response
@@ -282,6 +289,53 @@ function BlogCreateContent() {
                   onChange={(e) => setTitle(e.target.value)}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-purple-400 focus:ring-purple-400/20 rounded-xl h-12"
                 />
+              </motion.div>
+
+              {/* SEO Meta Fields */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35 }}
+                className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/10"
+              >
+                <div>
+                  <Label className="text-white/90 font-medium">SEO Metadata</Label>
+                  <p className="text-white/50 text-xs mt-1">
+                    Optional. Used for search engines and social sharing. Falls back to blog title and excerpt if left empty.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="metaTitle" className="text-white/90 text-sm">
+                    Meta Title
+                  </Label>
+                  <Input
+                    id="metaTitle"
+                    type="text"
+                    placeholder="Custom SEO title (max 70 characters)"
+                    value={metaTitle}
+                    onChange={(e) => setMetaTitle(e.target.value)}
+                    maxLength={70}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-purple-400 focus:ring-purple-400/20 rounded-xl h-11"
+                  />
+                  <p className="text-white/40 text-xs text-right">{metaTitle.length}/70</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="metaDescription" className="text-white/90 text-sm">
+                    Meta Description
+                  </Label>
+                  <Textarea
+                    id="metaDescription"
+                    placeholder="Custom SEO description for search results (max 320 characters)"
+                    value={metaDescription}
+                    onChange={(e) => setMetaDescription(e.target.value)}
+                    maxLength={320}
+                    rows={3}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-purple-400 focus:ring-purple-400/20 rounded-xl resize-none"
+                  />
+                  <p className="text-white/40 text-xs text-right">{metaDescription.length}/320</p>
+                </div>
               </motion.div>
 
               {/* Featured Image Upload */}
