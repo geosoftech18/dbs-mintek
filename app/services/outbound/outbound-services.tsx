@@ -1,6 +1,6 @@
 "use client"
 
-import Header from "@/components/dropdown-header"
+import Header from "@/components/header"
 import { useState ,useEffect} from "react"
 const iconMap: { [key: string]: React.ElementType } = {
   Phone,

@@ -190,7 +190,7 @@ export default function Header() {
         
       ],
     },
-    { name: "Gellery", href: "/gallery" },
+    { name: "Gallery", href: "/gallery" },
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contact" },
   ]
@@ -236,7 +236,7 @@ export default function Header() {
           <div className="flex items-center justify-between lg:justify-around py-3 sm:py-4">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
-            <img src="./logo.png" alt="DBS MINTEK PVT LTD" className="h-16 w-44"/>
+            <img src="/logo.png" alt="DBS MINTEK PVT LTD" className="h-16 w-44"/>
               
             </Link>
 

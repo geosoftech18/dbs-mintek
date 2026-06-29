@@ -6,7 +6,7 @@ import TechnologySection from "@/components/city/TechnologySection";
 import IndustriesSection from "@/components/city/IndustriesSection";
 import ProcessSection from "@/components/city/ProcessSection";
 import FAQSection from "@/components/city/FAQSection";
-import Header from "@/components/dropdown-header";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 export default function Home() {
