@@ -1,6 +1,7 @@
 "use client"
 
 import Header from "@/components/header"
+import PageBreadcrumbs from "@/components/page-breadcrumbs"
 import { useState ,useEffect} from "react"
 const iconMap: { [key: string]: React.ElementType } = {
   Phone,
@@ -209,6 +210,13 @@ export default function OutboundServices() {
       <section className="relative py-16 sm:py-20 lg:py-24 px-4 bg-gradient-to-r from-green-600 to-blue-700 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative max-w-6xl mx-auto">
+          <PageBreadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Services", href: "/#services" },
+              { label: "Outbound Call Center", href: "/services/outbound" },
+            ]}
+          />
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">

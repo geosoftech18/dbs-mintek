@@ -216,27 +216,42 @@ export default function ContactSection() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                    toolname="requestContact"
+                    tooldescription="Submit a contact enquiry to DBS Mintek for call center or BPO services."
+                  >
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                        <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-2">
+                          Full Name *
+                        </label>
                         <Input
+                          id="contact-name"
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
                           required
+                          autoComplete="name"
+                          toolparamdescription="Full name of the person making the enquiry"
                           className="w-full"
                           placeholder="Enter your full name"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                        <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-2">
+                          Email Address *
+                        </label>
                         <Input
+                          id="contact-email"
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
+                          autoComplete="email"
+                          toolparamdescription="Email address for follow-up"
                           className="w-full"
                           placeholder="Enter your email"
                         />
@@ -245,23 +260,33 @@ export default function ContactSection() {
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                        <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-2">
+                          Phone Number *
+                        </label>
                         <Input
+                          id="contact-phone"
                           type="tel"
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
                           required
+                          autoComplete="tel"
+                          toolparamdescription="Phone number including country code if possible"
                           className="w-full"
                           placeholder="Enter your phone number"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                        <label htmlFor="contact-company" className="block text-sm font-medium text-gray-700 mb-2">
+                          Company Name
+                        </label>
                         <Input
+                          id="contact-company"
                           name="company"
                           value={formData.company}
                           onChange={handleInputChange}
+                          autoComplete="organization"
+                          toolparamdescription="Company or organization name"
                           className="w-full"
                           placeholder="Enter your company name"
                         />
@@ -269,11 +294,16 @@ export default function ContactSection() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Service Interested In</label>
+                      <label htmlFor="contact-service" className="block text-sm font-medium text-gray-700 mb-2">
+                        Service Interested In
+                      </label>
                       <select
+                        id="contact-service"
                         name="service"
                         value={formData.service}
                         onChange={handleInputChange}
+                        aria-label="Service interested in"
+                        toolparamdescription="Which DBS Mintek service the visitor is interested in"
                         className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       >
                         <option value="">Select a service</option>
@@ -286,13 +316,17 @@ export default function ContactSection() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+                      <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-2">
+                        Message *
+                      </label>
                       <Textarea
+                        id="contact-message"
                         name="message"
                         value={formData.message}
                         onChange={handleInputChange}
                         required
                         rows={4}
+                        toolparamdescription="Details about the visitor requirements"
                         className="w-full"
                         placeholder="Tell us about your requirements..."
                       />

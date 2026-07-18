@@ -28,6 +28,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import PageBreadcrumbs from "@/components/page-breadcrumbs"
 
 interface ContactFormData {
   firstName: string
@@ -242,9 +243,16 @@ export default function ContactUs() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <Header/>
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 lg:py-24 px-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white overflow-hidden">
+      <section className="relative py-12 sm:py-14 lg:py-14 px-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative max-w-6xl mx-auto text-center">
+          <PageBreadcrumbs
+            className="text-left"
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Contact", href: "/contact" },
+            ]}
+          />
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4">
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-sm">
@@ -299,7 +307,12 @@ export default function ContactUs() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit}  className="space-y-6">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                    toolname="submitContactEnquiry"
+                    tooldescription="Submit a detailed contact enquiry to DBS Mintek from the contact page."
+                  >
                     {/* Name Fields */}
                     <div className="space-y-4">
                       <Label className="text-base font-semibold text-gray-900">
@@ -410,14 +423,18 @@ export default function ContactUs() {
 
                      {/* Enquiry Type */}
                      <div>
-                      <Label className="text-base font-semibold text-gray-900">
+                      <Label htmlFor="enquiryType" className="text-base font-semibold text-gray-900">
                         Type of Enquiry <span className="text-red-500">*</span>
                       </Label>
                       <Select
                         value={formData.enquiryType}
                         onValueChange={(value) => handleInputChange("enquiryType", value)}
                       >
-                        <SelectTrigger className="mt-2">
+                        <SelectTrigger
+                          id="enquiryType"
+                          className="mt-2"
+                          aria-label="Type of enquiry"
+                        >
                           <SelectValue placeholder="Select enquiry type" />
                         </SelectTrigger>
                         <SelectContent className="bg-white">

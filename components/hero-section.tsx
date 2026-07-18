@@ -5,6 +5,7 @@ import Image from "next/image"
 import { ChevronLeft, ChevronRight, MessageCircle, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Typewriter from 'typewriter-effect'
+import PageBreadcrumbs from "@/components/page-breadcrumbs"
 
 const slides = [
   {
@@ -54,13 +55,18 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative h-[600px] md:h-[700px] lg:h-[600px] overflow-hidden">
+    <section
+      className="relative h-[600px] md:h-[700px] lg:h-[600px] overflow-hidden"
+      aria-roledescription="carousel"
+      aria-label="Hero highlights"
+    >
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
           src={slides[currentSlide].image || "/placeholder.svg"}
-          alt="Hero background"
+          alt=""
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />
@@ -69,9 +75,14 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full h-full flex items-center">
+          <PageBreadcrumbs
+            variant="onLight"
+            className="absolute top-6 left-6 lg:left-8 z-20 mb-0"
+            items={[{ label: "", href: "/" }]}
+          />
           <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-blue-700 leading-tight mb-6 animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-blue-700 leading-tight mb-6 min-h-[3.5em] md:min-h-[2.6em]">
             <Typewriter
                options={{
                strings: `${slides[currentSlide].title}`,
@@ -82,10 +93,10 @@ export default function HeroSection() {
             />
               
             </h1>
-            <p className="text-lg md:text-xl text-gray-700  animate-fade-in-delay">
+            <p className="text-lg md:text-xl text-gray-700 min-h-[3rem]">
               {slides[currentSlide].subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:pt-20 animate-fade-in-delay-2">
+            <div className="flex flex-col sm:flex-row gap-4 sm:pt-20">
               <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-base font-medium">
                 <a href="#contact">Get Free Consultation</a>
               </Button>
@@ -99,17 +110,17 @@ export default function HeroSection() {
             </div>
 
             {/* Trust Indicators */}
-            <div className="mt-8 flex items-center space-x-6 text-sm text-gray-600 animate-fade-in-delay-3">
+            <div className="mt-8 flex items-center space-x-6 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
+                <CheckCircle className="h-5 w-5 text-green-500" aria-hidden="true" />
                 <span>ISO Certified</span>
               </div>
               <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
+                <CheckCircle className="h-5 w-5 text-green-500" aria-hidden="true" />
                 <span>24/7 Support</span>
               </div>
               <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
+                <CheckCircle className="h-5 w-5 text-green-500" aria-hidden="true" />
                 <span>500+ Happy Clients</span>
               </div>
             </div>
@@ -119,21 +130,21 @@ export default function HeroSection() {
 
       {/* Navigation Arrows */}
       <Button
-        
+        type="button"
+        aria-label="Previous slide"
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-blue-600 rounded-full w-12 h-12"
         onClick={prevSlide}
       >
-        <ChevronLeft className="h-6 w-6" />
-        <span className="sr-only">Previous slide</span>
+        <ChevronLeft className="h-6 w-6" aria-hidden="true" />
       </Button>
 
       <Button
-        
+        type="button"
+        aria-label="Next slide"
         className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-blue-600 rounded-full w-12 h-12"
         onClick={nextSlide}
       >
-        <ChevronRight className="h-6 w-6" />
-        <span className="sr-only">Next slide</span>
+        <ChevronRight className="h-6 w-6" aria-hidden="true" />
       </Button>
 
       {/* Slide Indicators */}

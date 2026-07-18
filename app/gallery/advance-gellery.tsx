@@ -24,6 +24,7 @@ import {
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import PageBreadcrumbs from "@/components/page-breadcrumbs"
 
 interface GalleryImage {
   id: number
@@ -279,6 +280,13 @@ export default function AdvancedGallery() {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="space-y-4">
+          <PageBreadcrumbs
+            variant="onLight"
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Gallery", href: "/gallery" },
+            ]}
+          />
           <h1 className="text-3xl font-bold">Advanced Gallery</h1>
 
           {/* Controls */}

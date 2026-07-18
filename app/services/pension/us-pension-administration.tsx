@@ -52,6 +52,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import PageBreadcrumbs from "@/components/page-breadcrumbs"
 import { color } from "framer-motion"
 
 interface FAQItem {
@@ -168,6 +169,13 @@ export default function USPensionAdministration() {
       <section className="relative py-16 sm:py-20 lg:py-24 px-4 bg-gradient-to-r from-emerald-600 to-blue-700 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative max-w-6xl mx-auto">
+          <PageBreadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Services", href: "/#services" },
+              { label: "US Pension Administration", href: "/services/pension" },
+            ]}
+          />
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">

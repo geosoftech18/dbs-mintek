@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import CallbackRequestDialog from "@/components/city/CallbackRequestDialog";
 import CountUp from "@/components/city/CountUp";
+import PageBreadcrumbs from "@/components/page-breadcrumbs";
 
 const trustBadges = [
   { icon: Shield, label: "ISO 27001 Certified" },
@@ -88,6 +89,13 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-16 pt-4 pb-24 grid lg:grid-cols-2 gap-12 items-center">
         {/* Left column */}
         <div className="flex flex-col gap-8">
+          <PageBreadcrumbs
+            className="mb-0"
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Call Center Mumbai", href: "/city/mumbai" },
+            ]}
+          />
           {/* Pill badge */}
           <div className="inline-flex items-center gap-2 bg-blue-900/60 border border-blue-500/30 text-cyan-300 text-xs font-semibold px-4 py-2 rounded-full w-fit backdrop-blur-sm">
             <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />

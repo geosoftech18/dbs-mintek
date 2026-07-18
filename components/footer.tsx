@@ -7,23 +7,24 @@ import {
   Phone,
   Mail,
   MapPin,
-  Facebook,
-  Twitter,
   Linkedin,
-  Instagram,
   ArrowRight,
   Building,
   Clock,
   Award,
 } from "lucide-react"
 
+const socialLinks = [
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/dbsmintek/", color: "hover:text-blue-700" },
+]
+
 const footerLinks = {
   services: [
     { name: "Inbound Call Center", href: "/services/inbound" },
     { name: "Outbound Call Center", href: "/services/outbound" },
-  {name: "US Pension ", href: "/services/pension" },
-    { name: "Email Support", href: "/services/email-support" },
-    { name: "Chat Support", href: "/services/chat-support" },
+    { name: "US Pension", href: "/services/pension" },
+    { name: "Email Support", href: "/services/email" },
+    { name: "Chat Support", href: "/services/chat" },
   ],
   company: [
     { name: "About Us", href: "/about" },
@@ -31,21 +32,11 @@ const footerLinks = {
     { name: "Our Team", href: "/contact" },
     { name: "Careers", href: "/contact" },
     { name: "News & Updates", href: "/blog" },
-  
   ],
   support: [
     { name: "Mumbai", href: "/city/mumbai" },
-   
-   
   ],
 }
-
-const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "#", color: "hover:text-blue-600" },
-  { name: "Twitter", icon: Twitter, href: "#", color: "hover:text-blue-400" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/dbsmintek/", color: "hover:text-blue-700" },
-  { name: "Instagram", icon: Instagram, href: "#", color: "hover:text-pink-600" },
-]
 
 export default function Footer() {
   return (
@@ -68,7 +59,13 @@ export default function Footer() {
                 </div> */}
                 {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
-            <img src="/logo.png" alt="DBS MINTEK PVT LTD" className="h-16 w-44"/>
+            <img
+              src="/logo.png"
+              alt="DBS MINTEK PVT LTD"
+              width={176}
+              height={64}
+              className="h-16 w-44"
+            />
               
             </Link>
                 {/* <div>
@@ -104,9 +101,12 @@ export default function Footer() {
                   <Link
                     key={social.name}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow DBS Mintek on ${social.name}`}
                     className={`p-2 bg-gray-800 rounded-lg transition-colors ${social.color}`}
                   >
-                    <social.icon className="h-5 w-5" />
+                    <social.icon className="h-5 w-5" aria-hidden="true" />
                   </Link>
                 ))}
               </div>
@@ -170,14 +170,33 @@ export default function Footer() {
               </p>
 
               <div className="flex space-x-2 mb-6">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-                />
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                <form
+                  className="flex w-full space-x-2"
+                  toolname="subscribeNewsletter"
+                  tooldescription="Subscribe to the DBS Mintek newsletter for company updates and industry insights."
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <label htmlFor="footer-newsletter-email" className="sr-only">
+                    Email address
+                  </label>
+                  <Input
+                    id="footer-newsletter-email"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autoComplete="email"
+                    toolparamdescription="Subscriber email address"
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+                  />
+                  <Button
+                    type="submit"
+                    aria-label="Subscribe to newsletter"
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <span className="sr-only">Subscribe</span>
+                  </Button>
+                </form>
               </div>
 
              

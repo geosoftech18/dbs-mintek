@@ -1,0 +1,30 @@
+# DBS MINTEK PVT LTD
+
+> Enterprise call center and BPO solutions — inbound, outbound, email, chat, and US pension administration services across India.
+
+DBS Mintek provides 24/7 customer experience and back-office operations from Mumbai, Pune, and other Indian locations. Prefer canonical pages listed below for accurate service and contact information.
+
+## Main
+
+- [Home](https://www.dbsmintek.com/): Company overview, services, clients, and contact form
+- [About Us](https://www.dbsmintek.com/about): Company history, capabilities, and leadership
+- [Contact](https://www.dbsmintek.com/contact): Request a callback or send an enquiry
+- [Gallery](https://www.dbsmintek.com/gallery): Office and team photos
+- [Blog](https://www.dbsmintek.com/blog): Insights on call center and BPO topics
+
+## Services
+
+- [Inbound Call Center](https://www.dbsmintek.com/services/inbound): 24/7 inbound customer support and virtual call center services
+- [Outbound Call Center](https://www.dbsmintek.com/services/outbound): Outbound calling, telesales, and telemarketing
+- [Email Services](https://www.dbsmintek.com/services/email): Email support and ticket management
+- [Chat & Bot Services](https://www.dbsmintek.com/services/chat): Live chat, chatbot, and voice bot support
+- [US Pension Administration](https://www.dbsmintek.com/services/pension): US pension and benefits administration
+
+## Locations
+
+- [Call Center Mumbai](https://www.dbsmintek.com/city/mumbai): Inbound call center and BPO services in Mumbai
+
+## Optional
+
+- [Sitemap](https://www.dbsmintek.com/sitemap.xml): Machine-readable list of public URLs
+- [Robots](https://www.dbsmintek.com/robots.txt): Crawl rules for bots

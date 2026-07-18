@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import Header from "@/components/header"
+import PageBreadcrumbs from "@/components/page-breadcrumbs"
 const iconMap: { [key: string]: React.ElementType } = {
   Building2,
   Globe,
@@ -849,8 +850,15 @@ export default function AboutUs() {
       <Header/>
       
       {/* Hero Section */}
-      <section className="relative py-12 sm:py-16 lg:py-20 xl:py-24 px-4 text-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white w-full">
+      <section className="relative py-12 sm:py-12  lg:py-14 xl:py-14 px-4 text-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white w-full">
         <div className="container-responsive">
+          <PageBreadcrumbs
+            className="text-left"
+            items={[
+              { label: "Home", href: "/" },
+              { label: "About Us", href: "/about" },
+            ]}
+          />
           <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-white/30 text-xs sm:text-sm">
             Established 2008
           </Badge>

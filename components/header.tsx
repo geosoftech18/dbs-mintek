@@ -236,7 +236,13 @@ export default function Header() {
           <div className="flex items-center justify-between lg:justify-around py-3 sm:py-4">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
-            <img src="/logo.png" alt="DBS MINTEK PVT LTD" className="h-16 w-44"/>
+            <img
+              src="/logo.png"
+              alt="DBS MINTEK PVT LTD"
+              width={176}
+              height={64}
+              className="h-16 w-44"
+            />
               
             </Link>
 
@@ -275,9 +281,14 @@ export default function Header() {
 
             {/* Desktop CTA Button */}
             <div className="hidden lg:block flex-shrink-0">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2">
-                <Phone className="w-4 h-4 mr-2" />
-                Get Quote
+              <Button
+                asChild
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2"
+              >
+                <Link href="/contact" aria-label="Get a free quote">
+                  <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Get Quote
+                </Link>
               </Button>
             </div>
 
@@ -341,9 +352,11 @@ export default function Header() {
 
                 {/* Mobile CTA Button */}
                 <div className="pt-4 border-t border-gray-200">
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Get Quote
+                  <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                    <Link href="/contact" aria-label="Get a free quote">
+                      <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
+                      Get Quote
+                    </Link>
                   </Button>
                 </div>
               </div>
