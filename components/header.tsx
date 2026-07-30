@@ -180,16 +180,16 @@ export default function Header() {
     { name: "About Us", href: "/about" },
     {
       name: "Services",
-      href: "#",
+      href: "/#services",
       submenu: [
         { name: "Inbound Services", href: "/services/inbound" },
         { name: "Outbound Services", href: "/services/outbound" },
         { name: "Email Services", href: "/services/email" },
         { name: "Chat & Bot Services", href: "/services/chat" },
         { name: "US Pension Administration", href: "/services/pension" },
-        
       ],
     },
+    { name: "Mumbai", href: "/city/mumbai" },
     { name: "Gallery", href: "/gallery" },
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contact" },

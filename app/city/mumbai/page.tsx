@@ -18,9 +18,9 @@ import {
   buildWebPageSchema,
 } from "@/lib/seo-schemas"
 
-const title = "Call Center Mumbai"
+const title = "Inbound Call Center Services in Mumbai"
 const description =
-  "Top-rated inbound call center and BPO services in Mumbai from DBS Mintek."
+  "Top-rated inbound call center and BPO services in Mumbai from DBS Mintek. 24/7 multilingual support, ISO-certified operations, and enterprise SLAs."
 const path = "/city/mumbai"
 
 export const metadata = pageMetadata({
@@ -29,9 +29,11 @@ export const metadata = pageMetadata({
   path,
   keywords: [
     "inbound call center Mumbai",
+    "call center services Mumbai",
     "BPO Mumbai",
     "customer support Mumbai",
     "call center outsourcing India",
+    "inbound BPO Mumbai",
   ],
 })
 

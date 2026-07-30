@@ -6,13 +6,17 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
+        allow: ['/', '/city/', '/services/', '/about', '/contact', '/gallery', '/blog'],
+        disallow: ['/blog/admin', '/blog/admin/', '/blog/create', '/api/'],
+      },
+      {
+        userAgent: 'Googlebot',
         allow: '/',
-        disallow: [
-          '/blog/admin',
-          '/blog/admin/',
-          '/blog/create',
-          '/api/',
-        ],
+        disallow: ['/blog/admin', '/blog/admin/', '/blog/create', '/api/'],
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/',
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
