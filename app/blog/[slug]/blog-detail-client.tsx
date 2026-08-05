@@ -36,123 +36,40 @@ interface BlogPost {
   comments?: number
 }
 
-export default function BlogDetailClient({ slug }: { slug: string }) {
-  const [post, setPost] = useState<BlogPost | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [liked, setLiked] = useState(false)
+type RelatedPost = {
+  slug: string
+  title: string
+  excerpt: string
+  featuredImage: string | null
+}
 
-  // Fallback dummy blog posts data
-  const dummyPosts: BlogPost[] = [
-    {
-      id: 1,
-      title: "Welcome to Our Futuristic Blog!",
-      content: `
-        <h2>Welcome to the Future of Blogging</h2>
-        <p>This is a sample blog post to demonstrate the blog module. The database is not configured yet, so this is placeholder content.</p>
-        
-        <h3>What You'll Find Here</h3>
-        <p>Our blog covers a wide range of topics including:</p>
-        <ul>
-          <li>Web development trends</li>
-          <li>Technology insights</li>
-          <li>Design inspiration</li>
-          <li>Industry news</li>
-        </ul>
-        
-        <h3>Getting Started</h3>
-        <p>Feel free to explore our content and don't hesitate to reach out if you have any questions. We're here to help you stay updated with the latest in technology and design.</p>
-        
-        <blockquote>
-          <p>"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt</p>
-        </blockquote>
-        
-        <p>Thank you for visiting our blog, and we hope you find the content valuable and inspiring!</p>
-      `,
-      excerpt: "This is a sample blog post to demonstrate the blog module. The database is not configured yet, so this is placeholder content.",
-      tags: ["welcome", "demo", "blog"],
-      status: "published",
-      featuredImage: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=400&fit=crop",
-      createdAt: new Date().toISOString(),
-      author: "Admin User",
-      readTime: "5 min read",
-      likes: 42,
-      comments: 8
-    },
-    {
-      id: 2,
-      title: "Getting Started with Our Blog System",
-      content: `
-        <h2>Mastering Our Blog System</h2>
-        <p>Learn how to use our modern blog system with all its features and capabilities.</p>
-        
-        <h3>Key Features</h3>
-        <p>Our blog system comes packed with amazing features:</p>
-        <ul>
-          <li>Rich text editing with TinyMCE</li>
-          <li>Image upload and management</li>
-          <li>Tag system for organization</li>
-          <li>Draft and publish workflow</li>
-          <li>Responsive design</li>
-        </ul>
-        
-        <h3>Creating Your First Post</h3>
-        <p>To create a new blog post, simply click the "Create New Post" button and fill out the form. Make sure to add a compelling title and engaging content.</p>
-        
-        <h3>Best Practices</h3>
-        <p>Here are some tips for creating great blog posts:</p>
-        <ol>
-          <li>Write compelling headlines</li>
-          <li>Use images to break up text</li>
-          <li>Add relevant tags</li>
-          <li>Proofread before publishing</li>
-        </ol>
-      `,
-      excerpt: "Learn how to use our modern blog system with all its features and capabilities.",
-      tags: ["tutorial", "getting-started"],
-      status: "published",
-      featuredImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
-      createdAt: new Date(Date.now() - 86400000).toISOString(),
-      author: "Tech Writer",
-      readTime: "7 min read",
-      likes: 28,
-      comments: 5
-    },
-    {
-      id: 3,
-      title: "The Future of Web Development",
-      content: `
-        <h2>Exploring Tomorrow's Web</h2>
-        <p>Exploring the latest trends and technologies that are shaping the future of web development.</p>
-        
-        <h3>Emerging Technologies</h3>
-        <p>The web development landscape is constantly evolving. Here are some key trends to watch:</p>
-        
-        <h4>Artificial Intelligence</h4>
-        <p>AI is revolutionizing how we build and interact with websites. From automated code generation to intelligent user experiences.</p>
-        
-        <h4>WebAssembly</h4>
-        <p>WebAssembly is bringing near-native performance to web applications, opening up new possibilities for complex applications.</p>
-        
-        <h4>Progressive Web Apps</h4>
-        <p>PWAs are blurring the line between web and native applications, providing app-like experiences in the browser.</p>
-        
-        <h3>What This Means for Developers</h3>
-        <p>As these technologies mature, developers will need to adapt and learn new skills to stay relevant in the industry.</p>
-      `,
-      excerpt: "Exploring the latest trends and technologies that are shaping the future of web development.",
-      tags: ["web-development", "future", "technology"],
-      status: "draft",
-      featuredImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
-      createdAt: new Date(Date.now() - 172800000).toISOString(),
-      author: "Future Tech",
-      readTime: "10 min read",
-      likes: 15,
-      comments: 3
-    }
-  ]
+export default function BlogDetailClient({
+  slug,
+  initialPost = null,
+  relatedPosts = [],
+}: {
+  slug: string
+  initialPost?: BlogPost | null
+  relatedPosts?: RelatedPost[]
+}) {
+  const [post, setPost] = useState<BlogPost | null>(
+    initialPost
+      ? {
+          author: 'Admin User',
+          readTime: '5 min read',
+          likes: 0,
+          comments: 0,
+          ...initialPost,
+        }
+      : null
+  )
+  const [loading, setLoading] = useState(!initialPost)
+  const [liked, setLiked] = useState(false)
 
   useEffect(() => {
     if (!slug) return
+    // Content already arrived with the server-rendered HTML.
+    if (initialPost) return
 
     // Load post from API
     const fetchPost = async () => {
@@ -185,7 +102,7 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
     }
 
     fetchPost()
-  }, [slug])
+  }, [slug, initialPost])
 
   const handleLike = () => {
     if (post) {
@@ -280,7 +197,7 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
                 }`}
               >
                 <Heart className={`w-4 h-4 mr-1 ${liked ? 'fill-current' : ''}`} />
-                {post.likes + (liked ? 1 : 0)}
+                {(post.likes ?? 0) + (liked ? 1 : 0)}
               </Button>
               
               <Button
@@ -551,7 +468,7 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
                   }`}
                 >
                   <Heart className={`w-4 h-4 mr-2 ${liked ? 'fill-current' : ''}`} />
-                  {liked ? 'Liked' : 'Like'} ({post.likes + (liked ? 1 : 0)})
+                  {liked ? 'Liked' : 'Like'} ({(post.likes ?? 0) + (liked ? 1 : 0)})
                 </Button>
                 
                 <Button
@@ -563,7 +480,7 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
                   Share Post
                 </Button>
                 
-                <Link href="/blog/create">
+                <Link href="/blog/create" rel="nofollow">
                   <Button 
                     variant="outline" 
                     className="border-blue-300 text-blue-700 hover:bg-blue-50 rounded-xl"
@@ -577,7 +494,8 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
           </Card>
         </motion.div>
 
-        {/* Related Posts (placeholder) */}
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -586,13 +504,10 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
         >
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Related Posts</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {dummyPosts
-              .filter(p => (p.id || 0) !== (post.id || post._id || 0))
-              .slice(0, 2)
-              .map((relatedPost, index) => (
+            {relatedPosts.map((relatedPost) => (
                 <Link 
-                  key={relatedPost.id || index}
-                  href={`/blog/${relatedPost.title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-')}`}
+                  key={relatedPost.slug}
+                  href={`/blog/${relatedPost.slug}`}
                 >
                   <Card className="bg-white border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                     <CardContent className="p-6">
@@ -619,6 +534,7 @@ export default function BlogDetailClient({ slug }: { slug: string }) {
               ))}
           </div>
         </motion.div>
+        )}
       </div>
     </div>
     </>

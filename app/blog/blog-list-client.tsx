@@ -26,11 +26,18 @@ interface BlogPost {
   createdAt: string
 }
 
-export default function BlogListClient() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [loading, setLoading] = useState(true)
+export default function BlogListClient({
+  initialPosts = [],
+}: {
+  initialPosts?: BlogPost[]
+}) {
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts)
+  const [loading, setLoading] = useState(initialPosts.length === 0)
 
   useEffect(() => {
+    // Posts already arrived with the server-rendered HTML.
+    if (initialPosts.length > 0) return
+
     const loadBlogs = async () => {
       try {
         const response = await fetch('/api/blog?status=published')
@@ -49,7 +56,7 @@ export default function BlogListClient() {
     }
 
     loadBlogs()
-  }, [])
+  }, [initialPosts.length])
 
   return (
     <>

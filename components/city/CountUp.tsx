@@ -152,20 +152,17 @@ export default function CountUp({
 }: CountUpProps) {
   const parsed = parseCountValue(value);
   const ref = useRef<HTMLSpanElement>(null);
+  // Render the final figure during SSR and the first paint so crawlers and
+  // no-JS visitors read real metrics instead of zeros.
   const [display, setDisplay] = useState(
-    parsed.animate ? formatNumber(0, parsed.decimals) : parsed.staticText
+    parsed.animate ? formatNumber(parsed.end, parsed.decimals) : parsed.staticText
   );
   const ran = useRef(false);
 
   useEffect(() => {
     const p = parseCountValue(value);
-    if (!p.animate) {
-      setDisplay(p.staticText);
-      ran.current = false;
-      return;
-    }
     ran.current = false;
-    setDisplay(formatNumber(0, p.decimals));
+    setDisplay(p.animate ? formatNumber(p.end, p.decimals) : p.staticText);
   }, [value]);
 
   useEffect(() => {
@@ -182,6 +179,7 @@ export default function CountUp({
         const steps = 60;
         const inc = parsed.end / steps;
         let cur = 0;
+        setDisplay(formatNumber(0, parsed.decimals));
         interval = setInterval(() => {
           cur += inc;
           if (cur >= parsed.end) {
