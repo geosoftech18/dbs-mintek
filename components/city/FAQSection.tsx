@@ -343,7 +343,14 @@ export default function FAQSection() {
                 </span>
               </h2>
               <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-8">
-                Join 500+ enterprises who trust DBS Mintek to deliver consistent, compliant, and cost-efficient inbound call center services across India's most demanding industries.
+                Join 500+ enterprises who trust DBS Mintek to deliver consistent, compliant, and cost-efficient{" "}
+                <a
+                  href="/services/inbound"
+                  className="text-blue-600 font-medium underline underline-offset-2 hover:text-blue-700 transition-colors"
+                >
+                  inbound call center services
+                </a>{" "}
+                across India&apos;s most demanding industries.
               </p>
 
               {/* Value propositions */}

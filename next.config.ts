@@ -4,8 +4,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
+  // Pin Turbopack to this app — a lockfile in C:\Users\hp was making
+  // Next infer the wrong workspace root and drop nested routes.
+  turbopack: {
+    root: process.cwd(),
   },
   images: {
     unoptimized: true,

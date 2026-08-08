@@ -114,7 +114,14 @@ export default function HeroSection() {
               Services in Mumbai
             </h1>
             <p className="mt-5 text-slate-300 text-base md:text-lg leading-relaxed max-w-lg">
-            Scale your customer support, boost retention, and deliver 24/7 exceptional experiences. Partner with Mumbai’s leading inbound BPO experts equipped with cutting-edge technology and premium talent.
+            Scale your customer support, boost retention, and deliver 24/7 exceptional experiences. Partner with Mumbai’s leading{" "}
+              <a
+                href="/services/inbound"
+                className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200 transition-colors"
+              >
+                inbound call center
+              </a>{" "}
+              and inbound BPO experts equipped with cutting-edge technology and premium talent.
             </p>
           </div>
 

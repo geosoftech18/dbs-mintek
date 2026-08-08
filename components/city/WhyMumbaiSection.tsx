@@ -144,7 +144,14 @@ export default function WhyMumbaiSection() {
             </span>
           </h2>
           <p className="mt-5 text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
-          In today’s competitive landscape, delivering fast, empathetic, and accurate customer support is a key business differentiator. Our state-of-the-art inbound call center services in Mumbai empower your brand to handle high-volume customer touchpoints seamlessly.
+          In today’s competitive landscape, delivering fast, empathetic, and accurate customer support is a key business differentiator. Our state-of-the-art{" "}
+            <a
+              href="/services/inbound"
+              className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200 transition-colors"
+            >
+              inbound call center services
+            </a>{" "}
+            in Mumbai empower your brand to handle high-volume customer touchpoints seamlessly.
           </p>
           <p className="mt-5 text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
           By strategically locating our operations hub in Mumbai, we leverage the city’s vast, highly educated, and multilingual professional talent pool. Whether you need to support customers across India or require global 24/7 technical help desks, our Mumbai facility delivers robust infrastructure, exceptional language proficiency, and unmatched operational agility to keep your business running smoothly around the clock.

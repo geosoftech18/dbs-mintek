@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import CountUp from "@/components/city/CountUp";
 import {
   HeadphonesIcon,
@@ -29,6 +30,8 @@ const services = [
     metric: "91%",
     metricLabel: "First Call Resolution Rate",
     accentColor: "blue",
+    href: "/services/inbound",
+    ctaLabel: "Inbound call center services",
   },
   {
     icon: Wrench,
@@ -174,7 +177,14 @@ export default function ServicesSection() {
             </span>
           </h2>
           <p className="mt-5 text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl">
-            From customer care to technical helpdesks, our six flagship service lines are engineered for Mumbai's enterprise market — delivered by trained agents, powered by technology.
+            From customer care to technical helpdesks, our six flagship{" "}
+            <Link
+              href="/services/inbound"
+              className="text-blue-600 font-medium underline underline-offset-2 hover:text-blue-700 transition-colors"
+            >
+              inbound call center services
+            </Link>{" "}
+            are engineered for Mumbai&apos;s enterprise market — delivered by trained agents, powered by technology.
           </p>
 
           {/* Stats strip */}
@@ -258,13 +268,26 @@ export default function ServicesSection() {
                         {service.metricLabel}
                       </p>
                     </div>
-                    <button className={`
-                      flex items-center gap-1.5 text-sm font-semibold text-slate-400
-                      ${c.arrowHover} transition-colors duration-200
-                    `}>
-                      Learn more
-                      <ArrowRight className={`w-4 h-4 transition-transform duration-200 ${isHovered ? "translate-x-1" : ""}`} />
-                    </button>
+                    {"href" in service && service.href ? (
+                      <Link
+                        href={service.href}
+                        className={`
+                          flex items-center gap-1.5 text-sm font-semibold text-slate-400
+                          ${c.arrowHover} transition-colors duration-200
+                        `}
+                      >
+                        {service.ctaLabel || "Learn more"}
+                        <ArrowRight className={`w-4 h-4 transition-transform duration-200 ${isHovered ? "translate-x-1" : ""}`} />
+                      </Link>
+                    ) : (
+                      <button className={`
+                        flex items-center gap-1.5 text-sm font-semibold text-slate-400
+                        ${c.arrowHover} transition-colors duration-200
+                      `}>
+                        Learn more
+                        <ArrowRight className={`w-4 h-4 transition-transform duration-200 ${isHovered ? "translate-x-1" : ""}`} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

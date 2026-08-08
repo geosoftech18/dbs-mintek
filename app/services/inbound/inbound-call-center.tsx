@@ -29,6 +29,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import PageBreadcrumbs from "@/components/page-breadcrumbs"
+import Link from "next/link"
 
 interface FAQItem {
   question: string
@@ -262,7 +263,14 @@ export default function InboundCallCenter() {
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Our inbound services are designed to provide businesses with a comprehensive solution for managing and
-              routing customer interactions with enterprise-grade reliability.
+              routing customer interactions with enterprise-grade reliability. For location-focused support, explore our{" "}
+              <Link
+                href="/city/mumbai"
+                className="text-blue-600 font-medium underline underline-offset-2 hover:text-blue-700 transition-colors"
+              >
+                inbound call center services in Mumbai
+              </Link>
+              .
             </p>
           </div>
 
@@ -676,8 +684,14 @@ export default function InboundCallCenter() {
                 Ready to Transform Your Customer Service?
               </h2>
               <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Join hundreds of businesses that trust DBS MINTEK for their inbound call center needs. Get started with
-                a free consultation today.
+                Join hundreds of businesses that trust DBS MINTEK for their inbound call center needs, including our{" "}
+                <Link
+                  href="/city/mumbai"
+                  className="text-blue-600 font-medium underline underline-offset-2 hover:text-blue-700 transition-colors"
+                >
+                  inbound call center in Mumbai
+                </Link>
+                . Get started with a free consultation today.
               </p>
             </div>
 
