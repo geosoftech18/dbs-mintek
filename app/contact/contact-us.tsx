@@ -192,7 +192,7 @@ export default function ContactUs() {
       id: "kothrud",
       name: "Kothrud, Pune",
       type: "IT Park Office",
-      address: "3rd Floor, B Wing, Lohia Jain IT Park, Kothrud, PUNE-411-038, Chandni Chowk, Maharashtra, India",
+      address: "4rd Floor, A Wing, Lohia Jain IT Park, Kothrud, PUNE-411-038, Chandni Chowk, Maharashtra, India",
       color: "green",
       gradient: "from-green-500 to-green-600",
       mapUrl: "https://maps.google.com/?q=Lohia+Jain+IT+Park+Kothrud+Pune+411038+Maharashtra",

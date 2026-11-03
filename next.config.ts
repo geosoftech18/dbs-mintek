@@ -1,13 +1,14 @@
 import type { NextConfig } from 'next'
+import path from 'path'
 
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Pin Turbopack to this app — a lockfile in C:\Users\hp was making
-  // Next infer the wrong workspace root and drop nested routes.
+  // Absolute path — process.cwd() alone still lost nested routes when another
+  // Next app held port 3000 / a parent lockfile confused Turbopack.
   turbopack: {
-    root: process.cwd(),
+    root: path.resolve(__dirname),
   },
   images: {
     unoptimized: true,

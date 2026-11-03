@@ -106,7 +106,7 @@ export default function FounderSection() {
               Leadership That Drives Innovation
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Discover the vision and expertise behind Geo SofTech's success story
+              Discover the vision and expertise behind DBS Mintek's success story
             </p>
           </motion.div>
 
