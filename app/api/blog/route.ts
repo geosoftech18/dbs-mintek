@@ -27,9 +27,30 @@ export async function GET(request: NextRequest) {
       ]
     }
 
-    const blogs = await Blog.find(query).sort({ createdAt: -1 })
+    // List views never need full HTML body — excluding it cuts origin transfer a lot.
+    const blogs = await Blog.find(query)
+      .select('-content')
+      .sort({ createdAt: -1 })
+      .lean()
 
-    return NextResponse.json({ success: true, data: blogs }, { status: 200 })
+    const isPublicPublished =
+      status === 'published' && !search
+
+    const response = NextResponse.json(
+      { success: true, data: blogs },
+      { status: 200 }
+    )
+
+    if (isPublicPublished) {
+      response.headers.set(
+        'Cache-Control',
+        'public, s-maxage=3600, stale-while-revalidate=86400'
+      )
+    } else {
+      response.headers.set('Cache-Control', 'private, no-store')
+    }
+
+    return response
   } catch (error: any) {
     console.error('Error fetching blogs:', error)
     return NextResponse.json(

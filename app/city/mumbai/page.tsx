@@ -23,6 +23,9 @@ const description =
   "Top-rated inbound call center and BPO services in Mumbai from DBS Mintek. 24/7 multilingual support, ISO-certified operations, and enterprise SLAs."
 const path = "/city/mumbai"
 
+/** Keep city page statically cached — avoids unnecessary ISR churn on Hobby. */
+export const revalidate = 86400
+
 export const metadata = pageMetadata({
   title,
   description,

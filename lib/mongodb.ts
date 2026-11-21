@@ -31,9 +31,12 @@ async function connectDB(): Promise<typeof mongoose> {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 15000,
-      connectTimeoutMS: 5000,
+      // Windows/Node often stalls on IPv6 for mongodb+srv — force IPv4.
+      family: 4 as const,
+      maxPoolSize: 5,
+      serverSelectionTimeoutMS: 20000,
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 20000,
     }
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((m) => m)

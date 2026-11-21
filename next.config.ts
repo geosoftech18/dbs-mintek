@@ -59,7 +59,25 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+      {
+        source: '/:path*(ico|png|jpg|jpeg|gif|webp|svg|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

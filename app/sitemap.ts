@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/site-config'
 import { SERVICE_PAGES } from '@/lib/seo-schemas'
 
-/** Refresh sitemap often so Google sees fresh lastmod / blog posts. */
-export const revalidate = 3600
+/** Daily refresh — hourly ISR was contributing to Hobby ISR write limits. */
+export const revalidate = 86400
 
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -28,11 +28,11 @@ async function getBlogSitemapEntries(): Promise<MetadataRoute.Sitemap> {
       import('@/models/Blog'),
     ])
 
-    await withTimeout(connectDB(), 4000)
+    await withTimeout(connectDB(), 12000)
 
     const posts = await withTimeout(
       Blog.find({ status: 'published' }).select('slug updatedAt').lean().exec(),
-      4000
+      12000
     )
 
     return posts.map((post) => ({

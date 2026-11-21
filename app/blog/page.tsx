@@ -9,7 +9,7 @@ const description =
   'Insights and updates from DBS Mintek on call center, BPO, and customer experience.'
 const path = '/blog'
 
-export const revalidate = 3600
+export const revalidate = 86400
 
 export const metadata = pageMetadata({
   title,

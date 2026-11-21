@@ -20,7 +20,15 @@ export async function GET(
       )
     }
 
-    return NextResponse.json({ success: true, data: blog }, { status: 200 })
+    const response = NextResponse.json(
+      { success: true, data: blog },
+      { status: 200 }
+    )
+    response.headers.set(
+      'Cache-Control',
+      'public, s-maxage=3600, stale-while-revalidate=86400'
+    )
+    return response
   } catch (error: any) {
     console.error('Error fetching blog by slug:', error)
     return NextResponse.json(

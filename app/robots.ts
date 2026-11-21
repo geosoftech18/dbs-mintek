@@ -6,44 +6,20 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/city/',
-          '/services/',
-          '/about',
-          '/contact',
-          '/gallery',
-          '/blog',
-          // Read-only endpoint the blog UI falls back to when rendering client
-          // side. Blocking it made Googlebot render empty blog pages.
-          '/api/blog',
-        ],
-        disallow: [
-          '/blog/admin',
-          '/blog/admin/',
-          '/blog/create',
-          '/api/auth',
-          '/api/blog/test-connection',
-          '/api/send-email',
-          '/api/inquiry-mail',
-          '/api/callback-mail',
-          '/api/consultation-mail',
-        ],
+        allow: ['/', '/city/', '/services/', '/about', '/contact', '/gallery', '/blog'],
+        // Blog HTML is server-rendered now — crawlers must not hit /api/*
+        // (that was burning Fast Origin Transfer on Hobby).
+        disallow: ['/blog/admin', '/blog/admin/', '/blog/create', '/api/'],
       },
       {
         userAgent: 'Googlebot',
-        allow: ['/', '/api/blog'],
-        disallow: [
-          '/blog/admin',
-          '/blog/admin/',
-          '/blog/create',
-          '/api/auth',
-          '/api/blog/test-connection',
-        ],
+        allow: '/',
+        disallow: ['/blog/admin', '/blog/admin/', '/blog/create', '/api/'],
       },
       {
         userAgent: 'Googlebot-Image',
         allow: '/',
+        disallow: ['/api/'],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
