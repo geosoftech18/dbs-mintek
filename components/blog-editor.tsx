@@ -141,21 +141,13 @@ export default function BlogEditor({ content, onChange, placeholder = 'Start wri
 
     setIsUploading(true)
     try {
-      // Convert to data URL for now (can be replaced with actual upload)
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        const dataUrl = reader.result as string
-        editor.chain().focus().setImage({ src: dataUrl }).run()
-        setIsUploading(false)
-      }
-      reader.onerror = () => {
-        alert('Image upload failed. Please try again.')
-        setIsUploading(false)
-      }
-      reader.readAsDataURL(file)
+      const { compressImageFile } = await import('@/lib/compress-image-client')
+      const dataUrl = await compressImageFile(file)
+      editor.chain().focus().setImage({ src: dataUrl }).run()
     } catch (error) {
       console.error('Image upload failed:', error)
       alert('Image upload failed. Please try again.')
+    } finally {
       setIsUploading(false)
     }
   }, [editor])

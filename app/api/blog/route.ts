@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import Blog from '@/models/Blog'
 import { isAuthenticated } from '@/lib/auth'
+import {
+  compressDataUriImage,
+  compressHtmlDataImages,
+} from '@/lib/blog-images'
 
 // GET all blogs (with optional filtering)
 export async function GET(request: NextRequest) {
@@ -85,16 +89,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Generate excerpt from content (strip HTML and limit length)
-    const tempDiv = typeof document !== 'undefined' 
-      ? document.createElement('div') 
-      : { innerHTML: '', textContent: '' }
-    
     // For server-side, use a simple regex to strip HTML tags
     const textContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim()
     const excerpt = textContent.length > 150 
       ? textContent.substring(0, 150) + '...' 
       : textContent
+
+    const [safeContent, safeFeatured] = await Promise.all([
+      compressHtmlDataImages(content),
+      compressDataUriImage(featuredImage),
+    ])
 
     // Generate slug
     const slug = title
@@ -111,12 +115,12 @@ export async function POST(request: NextRequest) {
       const uniqueSlug = `${slug}-${Date.now()}`
       const blog = await Blog.create({
         title,
-        content,
+        content: safeContent,
         excerpt,
         metaTitle: metaTitle?.trim() || null,
         metaDescription: metaDescription?.trim() || null,
         tags: tags || [],
-        featuredImage: featuredImage || null,
+        featuredImage: safeFeatured,
         status: status || 'draft',
         slug: uniqueSlug,
       })
@@ -126,12 +130,12 @@ export async function POST(request: NextRequest) {
 
     const blog = await Blog.create({
       title,
-      content,
+      content: safeContent,
       excerpt,
       metaTitle: metaTitle?.trim() || null,
       metaDescription: metaDescription?.trim() || null,
       tags: tags || [],
-      featuredImage: featuredImage || null,
+      featuredImage: safeFeatured,
       status: status || 'draft',
       slug,
     })

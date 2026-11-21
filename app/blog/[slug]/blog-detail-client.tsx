@@ -68,36 +68,37 @@ export default function BlogDetailClient({
 
   useEffect(() => {
     if (!slug) return
-    // Content already arrived with the server-rendered HTML.
-    if (initialPost) return
 
-    // Load post from API
+    // Full post already in HTML, including a usable (http) featured image.
+    if (initialPost?.featuredImage) return
+
+    // Load post from API — also used to hydrate base64 featured images that
+    // were stripped from the server payload to stay under Vercel size limits.
     const fetchPost = async () => {
-      setLoading(true)
-      
+      if (!initialPost) setLoading(true)
+
       try {
         const response = await fetch(`/api/blog/slug/${slug}`)
         const result = await response.json()
 
         if (result.success && result.data) {
           const blogData = result.data
-          // Add default values if missing
           const foundPost: BlogPost = {
-            ...blogData,
             author: 'Admin User',
             readTime: '5 min read',
             likes: 0,
-            comments: 0
+            comments: 0,
+            ...blogData,
           }
           setPost(foundPost)
-        } else {
+        } else if (!initialPost) {
           setPost(null)
         }
       } catch (error) {
         console.error('Error loading blog post:', error)
-        setPost(null)
+        if (!initialPost) setPost(null)
       } finally {
-      setLoading(false)
+        setLoading(false)
       }
     }
 

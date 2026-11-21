@@ -102,15 +102,17 @@ function BlogCreateContent() {
     }
   }, [editId, isEditing, authenticated])
 
-  // Handle image upload (dummy)
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Compress before save — raw phone photos were blowing past Vercel’s 20MB ISR limit.
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        setFeaturedImage(e.target?.result as string)
-      }
-      reader.readAsDataURL(file)
+    if (!file) return
+    try {
+      const { compressImageFile } = await import('@/lib/compress-image-client')
+      const dataUrl = await compressImageFile(file)
+      setFeaturedImage(dataUrl)
+    } catch (error) {
+      console.error('Featured image compress failed:', error)
+      alert('Could not process that image. Try a smaller JPG/PNG.')
     }
   }
 

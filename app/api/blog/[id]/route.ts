@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import Blog from '@/models/Blog'
 import { isAuthenticated } from '@/lib/auth'
+import {
+  compressDataUriImage,
+  compressHtmlDataImages,
+} from '@/lib/blog-images'
 
 // GET single blog by ID
 export async function GET(
@@ -66,6 +70,11 @@ export async function PUT(
       ? textContent.substring(0, 150) + '...' 
       : textContent
 
+    const [safeContent, safeFeatured] = await Promise.all([
+      compressHtmlDataImages(content),
+      compressDataUriImage(featuredImage),
+    ])
+
     // Generate slug if title changed
     let slug = title
       .toLowerCase()
@@ -84,12 +93,12 @@ export async function PUT(
       id,
       {
         title,
-        content,
+        content: safeContent,
         excerpt,
         metaTitle: metaTitle?.trim() || null,
         metaDescription: metaDescription?.trim() || null,
         tags: tags || [],
-        featuredImage: featuredImage || null,
+        featuredImage: safeFeatured,
         status: status || 'draft',
         slug,
       },

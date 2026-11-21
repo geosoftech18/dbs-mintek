@@ -9,7 +9,8 @@ const description =
   'Insights and updates from DBS Mintek on call center, BPO, and customer experience.'
 const path = '/blog'
 
-export const revalidate = 86400
+// Avoid ISR body-size failures if a large base64 image slips through.
+export const dynamic = 'force-dynamic'
 
 export const metadata = pageMetadata({
   title,

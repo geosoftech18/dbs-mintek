@@ -7,23 +7,17 @@ import {
 } from '@/lib/seo-schemas'
 import JsonLd from '@/components/json-ld'
 import { getPublishedPost, getRelatedPosts } from '@/lib/blog-data'
+import { isRemoteImageUrl, slimImageSrc } from '@/lib/blog-images'
 import BlogDetailClient from './blog-detail-client'
 
 type PageProps = {
   params: Promise<{ slug: string }>
 }
 
-export const revalidate = 86400
-
-export async function generateStaticParams() {
-  try {
-    const { getPublishedPosts } = await import('@/lib/blog-data')
-    const posts = await getPublishedPosts()
-    return posts.map((post) => ({ slug: post.slug }))
-  } catch {
-    return []
-  }
-}
+// Dynamic avoids Vercel ISR 20MB body failures when older posts still have
+// large base64 featured images. After images are compressed, this can return
+// to ISR (`revalidate`) if desired.
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
@@ -43,6 +37,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const metaTitle = post.metaTitle?.trim() || post.title
   const metaDescription = post.metaDescription?.trim() || post.excerpt
   const pageUrl = absoluteUrl(`/blog/${slug}`)
+  // data: URIs are invalid for social crawlers and explode metadata size.
+  const ogImage = isRemoteImageUrl(post.featuredImage)
+    ? post.featuredImage!
+    : undefined
 
   return {
     ...pageMetadata({
@@ -51,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       path: `/blog/${slug}`,
       keywords: post.tags,
       type: 'article',
-      image: post.featuredImage || undefined,
+      image: ogImage,
     }),
     openGraph: {
       type: 'article',
@@ -63,11 +61,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       publishedTime: post.createdAt,
       modifiedTime: post.updatedAt,
       tags: post.tags,
-      ...(post.featuredImage
+      ...(ogImage
         ? {
             images: [
               {
-                url: post.featuredImage,
+                url: ogImage,
                 alt: metaTitle,
               },
             ],
@@ -82,13 +80,21 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const { post } = await getPublishedPost(slug)
   const relatedPosts = post ? await getRelatedPosts(slug, post.tags) : []
 
+  // Related cards must not embed multi‑MB base64 images into the RSC payload.
+  const slimRelated = relatedPosts.map((item) => ({
+    ...item,
+    featuredImage: slimImageSrc(item.featuredImage),
+  }))
+
   const schemas = post
     ? [
         buildArticleSchema({
           title: post.metaTitle?.trim() || post.title,
           description: post.metaDescription?.trim() || post.excerpt,
           path: `/blog/${slug}`,
-          image: post.featuredImage,
+          image: isRemoteImageUrl(post.featuredImage)
+            ? post.featuredImage
+            : null,
           datePublished: post.createdAt,
           dateModified: post.updatedAt,
           tags: post.tags,
@@ -107,7 +113,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
       <BlogDetailClient
         slug={slug}
         initialPost={post}
-        relatedPosts={relatedPosts}
+        relatedPosts={slimRelated}
       />
     </>
   )
